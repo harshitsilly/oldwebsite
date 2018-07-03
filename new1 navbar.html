@@ -15,42 +15,38 @@
   body {
       font: 400 15px Lato, sans-serif;
       line-height: 1.8;
-      color: #002140; /* TEXT COLORS */
+      color: #061625; /* TEXT COLORS */
   }
   h2 {
       font-size: 24px;
       text-transform: uppercase;
-      color: #002140; /* TEXT COLORS */
+      color: #061625; /* TEXT COLORS */
       font-weight: 600;
       margin-bottom: 30px;
   }
   h4 {
       font-size: 19px;
       line-height: 1.375em;
-      color: #002140; /* TEXT COLORS */
+      color: #061625; /* TEXT COLORS */
       font-weight: 400;
       margin-bottom: 30px;
   }  
   .jumbotron {
-      background-image: url("https://www.topbots.com/wp-content/uploads/2018/01/deep_learning_breakthoughs_1600px_web-1280x640.jpg"); /* background YOLO*/
-      color: #FFD700; /* YOLO TITLE COLOR */
+      background-image: url(https://zdnet4.cbsistatic.com/hub/i/2018/04/13/36c52953-7ab9-4608-a848-71d1d538856e/2cad00bf6c3dc3ff21009836b989cda7/td-deep-learning.jpg); /* background YOLO*/
+      color: #fff; /* YOLO TITLE COLOR */
       padding: 150px 25px;
       font-family: Diplomata;
   }
   .container-fluid {
       padding: 60px 50px;
   }
-  .bg-grey {
-      background-color: #A1D6E2;/* the changing SHIFT BLUE COLOR*/
+  .bg-darkblue { /*actually white*/
+      background-color: #fff;/* the changing SHIFT BLUE COLOR*/
   }
-  .logo-small {
-      color: #5680E9; /* logo at the bottom */
-      font-size: 50px;
+  .bg-lightblue {
+      background-color: #98dafc; /* the changing SHIFT lightBLUE COLOR*/
   }
-  .logo {
-      color: #daad86; /* BARS AND WORLD*/
-      font-size: 200px;
-  }
+
   .thumbnail {
       padding: 0 0 15px 0;
       border: none;
@@ -63,13 +59,13 @@
   }
   .carousel-control.right, .carousel-control.left {
       background-image: none;
-      color: #daad86; /* ARROWS*/
+      color: #98dafc; /* ARROWS*/
   }
   .carousel-indicators li {
-      border-color: #daad86; /* THE SMALL CIRCLES WITH ARROWS*/
+      border-color: #98dafc; /* THE SMALL CIRCLES WITH ARROWS*/
   }
   .carousel-indicators li.active {
-      background-color: #daad86; /* THE BALL IN THE CIRCLES*/
+      background-color: #98dafc; /* THE BALL IN THE CIRCLES*/
   }
   .item h4 {
       font-size: 19px;
@@ -90,13 +86,13 @@
       box-shadow: 5px 0px 40px rgba(0,0,0, .2);
   }
   .panel-footer .btn:hover {
-      border: 1px solid #F172A1; /* idk */
-      background-color: #F172A1 !important; /* idk */
-      color: #F172A1; /* idk */
+      border: 1px solid #FFC0CB; /* idk*/
+      background-color: #98dafc !important; /* background color of aboutme when click */
+      color: #98dafc; /* about me color of aboutme when click */
   }
   .panel-heading {
-      color: #fff !important; /* BASIC PRO WORDS COLOR */
-      background-color: #98dafc !important; /* basic pro background*/
+      color: #98dafc !important; /* johnathan rachel WORDS COLOR */
+      background-color: #fff !important; /* johnathan rachel background*/
       padding: 25px;
       border-bottom: 1px solid transparent;
       border-top-left-radius: 0px;
@@ -105,23 +101,20 @@
       border-bottom-right-radius: 0px;
   }
   .panel-footer {
-      background-color: #fff !important; /* background the price amount*/
+      background-color: #fff !important; /* background the pic of people amount*/
   }
   .panel-footer h3 {
       font-size: 32px;
   }
-  .panel-footer h4 {
-      color: #312C32; /* per month color */
-      font-size: 14px;
-  }
+  
   .panel-footer .btn {
       margin: 15px 0;
-      background-color: #98dafc; /*sign up background*/
-      color: #fff; /* sign up word*/
+      background-color: #98dafc; /*about me background*/
+      color: #fff; /* about me word*/
   }
   .navbar {
       margin-bottom: 0;
-      background-color: #002140; /*NAV BAR BACK*/
+      background-color: #071522; /*NAV BAR BACK*/
       z-index: 9999;
       border: 0;
       font-size: 12px !important;
@@ -134,12 +127,12 @@
       color: #fff !important; /*the words in nav bar when at top*/
   }
   .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #FFD700 !important; /* the words in nav bar when scroll*/
-      background-color: #fff !important; /* the background of the words in nav bar when scroll*/
+      color: #fff !important; /* the words in nav bar when scroll*/
+      background-color: #98dafc !important; /* the background of the words in nav bar when scroll*/
   }
   .navbar-default .navbar-toggle {
-      border-color: transparent; /*IDK*/
-      color: #FF0 !important; /*IDK*/
+      border-color: #FFC0CB; /*IDK*/
+      color: #FFC0CB !important; /*IDK*/
   }
   footer .glyphicon {
       font-size: 20px;
@@ -199,15 +192,18 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>    
       </button>
       <a class="navbar-brand" href="#myPage">YOLO</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#about">ABOUT </a></li>
-        <li><a href="#services">LIVE CAMERA</a></li> 
-        <li><a href="#portfolio">ABOUT US</a></li>
+        <li><a href="#livecamera">LIVE CAMERA</a></li> 
+        <li><a href="#examples">EXAMPLES</a></li>
+        <li><a href="#gettoknowus">GET TO KNOW US</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+
       </ul>
     </div>
   </div>
@@ -218,14 +214,13 @@
   <p>We specialize in real-time object detection</p>
   <form>
     <div class="input-group">
-      
       </div>
     </div>
   </form>
 </div>
 
 <!-- Container (About Section) -->
-<div id="about" class="container-fluid">
+<div id="about" class="container-fluid bg-darkblue">
   <div class="row">
     <div class="col-sm-8">
       <h2>About Website Page</h2><br>
@@ -239,28 +234,30 @@
     <div class="col-sm-4">
       <img src="https://i.stack.imgur.com/VC1TX.png" class="img-thumbnail" alt="object detection">
 
-      <!--<span class="glyphicon glyphicon-signal logo"></span>-->
     </div>
   </div>
 </div>
 
-<div class="container-fluid bg-grey">
+<div class="container-fluid bg-darkblue">
   <div class="row">
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-globe logo slideanim"></span>
+      <img src="https://zdnet2.cbsistatic.com/hub/i/r/2018/04/13/cf38d399-bca4-48f1-9161-bbfa9cea167a/resize/370xauto/671e316ba2a27b98148f1bb6fbb88cf3/deep-learning-pix.png" class="img-circle" width="250" height="250"alt="brain/eye">
     </div>
     <div class="col-sm-8">
-      <h2>Our Values</h2><br>
-      <h4><strong>MISSION:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
-      <p><strong>VISION:</strong> Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <!--<h2>add another title </h2><br>got ride of unless need to add another slide-->
+      <h4><strong>MISSION:</strong> add more info here.</h4><br>
+      <p><strong>VISION:</strong> add more info here.</p>
     </div>
   </div>
 </div>
 
-<!-- Container (Services Section) -->
-<div id="services" class="container-fluid text-center">
-  <h2>SERVICES</h2>
+<!-- Container (live camera Section) -->
+<div id="livecamera" class="container-fluid text-center bg-lightblue">
+  <h2>Live Camera</h2>
+
+
+
+
   <h4>What we offer</h4>
   <br>
   <div class="row slideanim">
@@ -298,37 +295,41 @@
       <p>Lorem ipsum dolor sit amet..</p>
     </div>
   </div>
-</div>
+</div> 
+
+
+
+
 
 <!-- Container (Portfolio Section) -->
-<div id="portfolio" class="container-fluid text-center bg-grey">
-  <h2>Portfolio</h2><br>
+<div id="examples" class="container-fluid text-center bg-darkblue">
+  <h2>Examples</h2><br>
   <h4>What we have created</h4>
   <div class="row text-center slideanim">
     <div class="col-sm-4">
       <div class="thumbnail">
-        <img src="paris.jpg" alt="Paris" width="400" height="300">
-        <p><strong>Paris</strong></p>
-        <p>Yes, we built Paris</p>
+        <img src="https://s3.ap-south-1.amazonaws.com/techleer/130.jpg" alt="first" width="400" height="300">
+        <p><strong>First Trial</strong></p>
+        <p>explain</p>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="thumbnail">
-        <img src="newyork.jpg" alt="New York" width="400" height="300">
-        <p><strong>New York</strong></p>
-        <p>We built New York</p>
+        <img src="https://pbs.twimg.com/media/C2iLN6iW8AEbk5D.jpg" alt="second" width="400" height="300">
+        <p><strong>Second Trial </strong></p>
+        <p>explain</p>
       </div>
     </div>
     <div class="col-sm-4">
       <div class="thumbnail">
-        <img src="sanfran.jpg" alt="San Francisco" width="400" height="300">
-        <p><strong>San Francisco</strong></p>
-        <p>Yes, San Fran is ours</p>
+        <img src="https://i.ytimg.com/vi/MoMjIwGSFVQ/maxresdefault.jpg" alt="third" width="400" height="300">
+        <p><strong>Third Trial</strong></p>
+        <p>explain</p>
       </div>
     </div>
   </div><br>
   
-  <h2>What our customers say</h2>
+  <h2>Other Intereting Trials</h2>
   <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -340,13 +341,16 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <h4>"This company is the best. I am so happy with the result!"<br><span>Michael Roe, Vice President, Comment Box</span></h4>
+        <h4><img src="https://i.ytimg.com/vi/OzyrK5L9_C4/maxresdefault.jpg" alt="fourth" class="center" width="200" height="100">
+          <br><span>"something about!"<br><span>this picture</span></h4>
       </div>
       <div class="item">
-        <h4>"One word... WOW!!"<br><span>John Doe, Salesman, Rep Inc</span></h4>
+        <h4><img src="https://i.ytimg.com/vi/OzyrK5L9_C4/maxresdefault.jpg" alt="fourth" class="center" width="200" height="100">
+          <br><span>"something about!"<br><span>this picture</span></h4>
       </div>
       <div class="item">
-        <h4>"Could I... BE any more happy with this company?"<br><span>Chandler Bing, Actor, FriendsAlot</span></h4>
+        <h4><img src="https://lh3.googleusercontent.com/proxy/20c-P2ZAauoOxAdHHmGkS6GjmdiUUT4X4lTYPs37PTqMNZYRp9QI9VEM39u2hJRAO3ah4pMQ8z2F5YsnwR0wBVbko9SOIs8d13s3iehemU6mKAk7b37IQg=w530-h353-p" alt="fourth" class="center" width="200" height="100">
+          <br><span>"something about!"<br><span>this picture</span></h4>
       </div>
     </div>
 
@@ -360,89 +364,110 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-</div>
+</div> 
 
-<!-- Container (Pricing Section) -->
-<div id="pricing" class="container-fluid">
+<!-- Container (Get to know us) -->
+<div id="gettoknowus" class="container-fluid bg-lightblue">
   <div class="text-center">
-    <h2>Pricing</h2>
-    <h4>Choose a payment plan that works for you</h4>
+    <h2>GET TO KNOW US</h2>
   </div>
   <div class="row slideanim">
+    <div class="col-sm-6 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>Jonathan Pedoeem</h1>
+        </div>
+        <div class="panel-body">
+          <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/20861957_10154983606587153_115978224345654271_o.jpg?_nc_cat=0&oh=b86985be6863823cef50ada1800b3d54&oe=5BAF56AC" class="img-circle" width="300" height="300"alt="Jonathan Pedoeem">
+        </div>
+        <div class="panel-footer">
+          <button class="btn btn-lg"data-toggle="collapse" data-target="#JP">About Me</button>
+          <div id="JP" class="collapse">
+            INFO.
+          </div>
+        </div>
+      </div>      
+    </div>   
+    <div class="row slideanim">
+    <div class="col-sm-6 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>Rachel Huang</h1>
+        </div>
+        <div class="panel-body">
+          <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-1/c0.235.1578.1578/23213090_10213414732475707_7990233878450376489_o.jpg?_nc_cat=0&oh=dffcc1accbe115954de3f3b54d01b365&oe=5BDEBDC9" class="img-circle" width="300" height="300"alt="Rachel Huang">
+        </div>
+        <div class="panel-footer">
+          <button class="btn btn-lg"data-toggle="collapse" data-target="#RH">About Me</button>
+          <div id="RH" class="collapse">
+            INFO.
+          </div>
+        </div>
+      </div>      
+    </div>    
+    <div class="row slideanim">
     <div class="col-sm-4 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
-          <h1>Basic</h1>
+          <h1>Dr. Cuixian Chen</h1>
         </div>
         <div class="panel-body">
-          <p><strong>20</strong> Lorem</p>
-          <p><strong>15</strong> Ipsum</p>
-          <p><strong>5</strong> Dolor</p>
-          <p><strong>2</strong> Sit</p>
-          <p><strong>Endless</strong> Amet</p>
+          <img src="http://people.uncw.edu/chenc/20110801chen_tracy001.jpg" class="img-circle" width="200" height="200" alt="Dr. Cuixian Chen">
         </div>
         <div class="panel-footer">
-          <h3>$19</h3>
-          <h4>per month</h4>
-          <button class="btn btn-lg">Sign Up</button>
+          <button class="btn btn-lg"data-toggle="collapse" data-target="#CC">About Me</button>
+          <div id="CC" class="collapse">
+            INFO.
+          </div>
         </div>
       </div>      
     </div>     
     <div class="col-sm-4 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
-          <h1>Pro</h1>
+          <h1>Summerlin Thompson</h1>
         </div>
         <div class="panel-body">
-          <p><strong>50</strong> Lorem</p>
-          <p><strong>25</strong> Ipsum</p>
-          <p><strong>10</strong> Dolor</p>
-          <p><strong>5</strong> Sit</p>
-          <p><strong>Endless</strong> Amet</p>
+          <img src="https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/23319145_903456333134834_6249445024725516823_n.jpg?_nc_cat=0&oh=273d769cfa09290fe0a6717bbac7e9f3&oe=5BAA9B81" class="img-circle" width="200" height="200"alt="Summerlin Thompson">
         </div>
         <div class="panel-footer">
-          <h3>$29</h3>
-          <h4>per month</h4>
-          <button class="btn btn-lg">Sign Up</button>
+          <button class="btn btn-lg"data-toggle="collapse" data-target="#ST">About Me</button>
+          <div id="ST" class="collapse">
+            INFO.
+          </div>
         </div>
       </div>      
     </div>       
     <div class="col-sm-4 col-xs-12">
       <div class="panel panel-default text-center">
         <div class="panel-heading">
-          <h1>Premium</h1>
+          <h1>Dr. Yishi Wang</h1>
         </div>
         <div class="panel-body">
-          <p><strong>100</strong> Lorem</p>
-          <p><strong>50</strong> Ipsum</p>
-          <p><strong>25</strong> Dolor</p>
-          <p><strong>10</strong> Sit</p>
-          <p><strong>Endless</strong> Amet</p>
+          <img src="https://uncw.edu/profiles/Photos/WeAre_YishiWang_Main-7904.jpg" class="img-circle" width="200" height="200" alt="Dr. Yishi Wang">
         </div>
         <div class="panel-footer">
-          <h3>$49</h3>
-          <h4>per month</h4>
-          <button class="btn btn-lg">Sign Up</button>
+          <button class="btn btn-lg"data-toggle="collapse" data-target="#YW">About Me</button>
+          <div id="YW" class="collapse">
+            INFO.
+          </div>
         </div>
       </div>      
     </div>    
   </div>
 </div>
+</div>
+</div>
 
 <!-- Container (Contact Section) -->
-<div id="contact" class="container-fluid bg-grey">
+<div id="contact" class="container-fluid bg-darkblue">
   <h2 class="text-center">CONTACT</h2>
   <div class="row">
     <div class="col-sm-5">
-      <p>Contact us and we'll get back to you within 24 hours.</p>
-      <p><span class="glyphicon glyphicon-map-marker"></span> Chicago, US</p>
-      <p><span class="glyphicon glyphicon-phone"></span> +00 1515151515</p>
-      <p><span class="glyphicon glyphicon-envelope"></span> myemail@something.com</p>
-      <!--   <input type="email" class="form-control" size="50" placeholder="Email Address" required>
-       
-      <div class="input-group-btn">
-        <button type="button" class="btn btn-danger">Subscribe</button>
-/* for emai land subcribe -->
+      <p>Contact us and we'll get back to you soon.</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span> United States</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +need a phone number</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> need an email</p>
     </div>
     <div class="col-sm-7 slideanim">
       <div class="row">
@@ -457,13 +482,21 @@
       <div class="row">
         <div class="col-sm-12 form-group">
           <button class="btn btn-default pull-right" type="submit">Send</button>
+
+          <div class="row">
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Add Google Maps -->
+<p><input type="email" class="form-control" size="10" placeholder="Email Address" required>
+       
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-danger">Subscribe</button></div></p>
+      </div>
+
+<!-- Add Google Maps 
 <div id="googleMap" style="height:400px;width:100%;"></div>
 <script>
 function myMap() {
@@ -475,10 +508,9 @@ marker.setMap(map);
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-<!--
+
 To use this code on your website, get a free API key from Google.
 Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
--->
 
 <footer class="container-fluid text-center">
   <a href="#myPage" title="To Top">
@@ -486,6 +518,8 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
   </a>
   <p>Bootstrap Theme Made By <a href="https://www.w3schools.com" title="Visit w3schools">www.w3schools.com</a></p>
 </footer>
+
+-->
 
 <script>
 $(document).ready(function(){
