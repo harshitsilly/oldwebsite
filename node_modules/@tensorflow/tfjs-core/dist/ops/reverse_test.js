@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tf = require("../index");
-var test_util_1 = require("../test_util");
 var jasmine_util_1 = require("../jasmine_util");
+var test_util_1 = require("../test_util");
 jasmine_util_1.describeWithFlags('reverse1d', test_util_1.ALL_ENVS, function () {
     it('reverse a 1D array', function () {
         var input = tf.tensor1d([1, 2, 3, 4, 5]);
@@ -16,6 +16,12 @@ jasmine_util_1.describeWithFlags('reverse1d', test_util_1.ALL_ENVS, function () 
         var da = tf.grad(function (a) { return tf.reverse1d(a); })(a, dy);
         expect(da.shape).toEqual([3]);
         test_util_1.expectArraysClose(da, [30, 20, 10]);
+    });
+    it('accepts a tensor-like object', function () {
+        var input = [1, 2, 3, 4, 5];
+        var result = tf.reverse1d(input);
+        expect(result.shape).toEqual([5]);
+        test_util_1.expectArraysClose(result, [5, 4, 3, 2, 1]);
     });
 });
 jasmine_util_1.describeWithFlags('reverse2d', test_util_1.ALL_ENVS, function () {
@@ -66,6 +72,13 @@ jasmine_util_1.describeWithFlags('reverse2d', test_util_1.ALL_ENVS, function () 
         var da = tf.grad(function (a) { return tf.reverse2d(a, 1); })(a, dy);
         expect(da.shape).toEqual([2, 3]);
         test_util_1.expectArraysClose(da, [30, 20, 10, 60, 50, 40]);
+    });
+    it('accepts a tensor-like object', function () {
+        var axis = [0];
+        var a = [[1, 2, 3], [4, 5, 6]];
+        var result = tf.reverse2d(a, axis);
+        expect(result.shape).toEqual([2, 3]);
+        test_util_1.expectArraysClose(result, [4, 5, 6, 1, 2, 3]);
     });
 });
 jasmine_util_1.describeWithFlags('reverse3d', test_util_1.ALL_ENVS, function () {
@@ -140,6 +153,12 @@ jasmine_util_1.describeWithFlags('reverse3d', test_util_1.ALL_ENVS, function () 
     it('throws error with non integer axis param', function () {
         var x = tf.tensor3d([1, 20, 300, 4], [1, 1, 4]);
         expect(function () { return tf.reverse3d(x, [0.5]); }).toThrowError();
+    });
+    it('accepts a tensor-like object', function () {
+        var input = [[[1], [2], [3]], [[4], [5], [6]]];
+        var result = tf.reverse3d(input, [0]);
+        expect(result.shape).toEqual([2, 3, 1]);
+        test_util_1.expectArraysClose(result, [4, 5, 6, 1, 2, 3]);
     });
 });
 jasmine_util_1.describeWithFlags('reverse4d', test_util_1.ALL_ENVS, function () {
@@ -229,11 +248,23 @@ jasmine_util_1.describeWithFlags('reverse4d', test_util_1.ALL_ENVS, function () 
         var x = tf.tensor4d([1, 20, 300, 4], [1, 1, 1, 4]);
         expect(function () { return tf.reverse4d(x, [0.5]); }).toThrowError();
     });
+    it('accepts a tensor-like object', function () {
+        var input = [[[[1]], [[2]], [[3]]], [[[4]], [[5]], [[6]]]];
+        var result = tf.reverse4d(input, [0]);
+        expect(result.shape).toEqual([2, 3, 1, 1]);
+        test_util_1.expectArraysClose(result, [4, 5, 6, 1, 2, 3]);
+    });
 });
-jasmine_util_1.describeWithFlags('reverse', test_util_1.CPU_ENVS, function () {
+jasmine_util_1.describeWithFlags('reverse', test_util_1.ALL_ENVS, function () {
     it('throws when passed a non-tensor', function () {
         expect(function () { return tf.reverse({}); })
             .toThrowError(/Argument 'x' passed to 'reverse' must be a Tensor/);
+    });
+    it('accepts a tensor-like object', function () {
+        var input = [1, 2, 3];
+        var result = tf.reverse(input);
+        expect(result.shape).toEqual([3]);
+        test_util_1.expectArraysClose(result, [3, 2, 1]);
     });
 });
 //# sourceMappingURL=reverse_test.js.map

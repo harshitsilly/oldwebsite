@@ -1,4 +1,5 @@
 import { Tensor3D, Tensor4D } from '../tensor';
-export declare class LRNOps {
-    static localResponseNormalization<T extends Tensor3D | Tensor4D>(x: T, depthRadius?: number, bias?: number, alpha?: number, beta?: number): T;
-}
+import { TensorLike } from '../types';
+declare function localResponseNormalization_<T extends Tensor3D | Tensor4D>(x: T | TensorLike, depthRadius?: number, bias?: number, alpha?: number, beta?: number): T;
+export declare const localResponseNormalization: typeof localResponseNormalization_;
+export {};

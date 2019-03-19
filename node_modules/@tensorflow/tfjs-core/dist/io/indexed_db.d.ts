@@ -8,7 +8,7 @@ export declare class BrowserIndexedDB implements IOHandler {
     constructor(modelPath: string);
     save(modelArtifacts: ModelArtifacts): Promise<SaveResult>;
     load(): Promise<ModelArtifacts>;
-    private databaseAction(modelPath, modelArtifacts?);
+    private databaseAction;
 }
 export declare const indexedDBRouter: IORouter;
 export declare function browserIndexedDB(modelPath: string): IOHandler;

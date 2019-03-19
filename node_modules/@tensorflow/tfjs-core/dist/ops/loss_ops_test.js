@@ -35,6 +35,13 @@ jasmine_util_1.describeWithFlags('computeWeightedLoss', test_util_1.ALL_ENVS, fu
         expect(y.shape).toEqual([]);
         test_util_1.expectNumbersClose(y.get(), (1 * 0.1 + 2 * 0 + 3 * 0.3) / 2);
     });
+    it('2D - weights - broadcast', function () {
+        var losses = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var y = tf.losses.computeWeightedLoss(losses, weights);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 0.06666667);
+    });
     it('1D - weights - Reduction.NONE', function () {
         var losses = tf.tensor1d([1, 2, 3]);
         var weights = tf.tensor1d([0.1, 0.2, 0.3]);
@@ -82,6 +89,13 @@ jasmine_util_1.describeWithFlags('computeWeightedLoss', test_util_1.ALL_ENVS, fu
         expect(y.shape).toEqual([]);
         test_util_1.expectNumbersClose(y.get(), (4 * 1 + 8 * 0 + 12 * 2 + (8 * -5) + 1 * 0 + 3 * 6) / 4);
     });
+    it('2D - weights - broadcast - MEAN', function () {
+        var losses = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var y = tf.losses.computeWeightedLoss(losses, weights, tf.Reduction.MEAN);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), (0.3 + 0.1 + 0.2) / (3 * 0.6));
+    });
     it('2D - no weights - Reduction.SUM', function () {
         var losses = tf.tensor2d([4, 8, 12, 8, 1, 3], [2, 3]);
         var y = tf.losses.computeWeightedLoss(losses, undefined, tf.Reduction.SUM);
@@ -119,6 +133,13 @@ jasmine_util_1.describeWithFlags('computeWeightedLoss', test_util_1.ALL_ENVS, fu
         var e = /Argument 'weights' passed to 'computeWeightedLoss' must be a Tensor/;
         expect(function () { return tf.losses.computeWeightedLoss(losses, {}, tf.Reduction.NONE); })
             .toThrowError(e);
+    });
+    it('accepts a tensor-like object', function () {
+        var losses = [1, 2, 3];
+        var weights = [0.1, 0, 0.3];
+        var y = tf.losses.computeWeightedLoss(losses, weights);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), (1 * 0.1 + 2 * 0 + 3 * 0.3) / 2);
     });
 });
 jasmine_util_1.describeWithFlags('absoluteDifference', test_util_1.ALL_ENVS, function () {
@@ -239,6 +260,17 @@ jasmine_util_1.describeWithFlags('absoluteDifference', test_util_1.ALL_ENVS, fun
         var e = /Argument 'weights' passed to 'absoluteDifference' must be a Tensor/;
         expect(function () { return tf.losses.absoluteDifference(label, predictions, {}, tf.Reduction.MEAN); })
             .toThrowError(e);
+    });
+    it('accepts a tensor-like object', function () {
+        var predictions = [1, 2, 3];
+        var label = [0.3, -0.6, -0.1];
+        var weights = [0.1, 0.2, 0.3];
+        var y = tf.losses.absoluteDifference(label, predictions, weights, tf.Reduction.NONE);
+        expect(y.shape).toEqual([3]);
+        test_util_1.expectArraysClose(y, [
+            Math.abs(1 - 0.3) * 0.1, Math.abs(2 - (-0.6)) * 0.2,
+            Math.abs(3 - (-0.1)) * 0.3
+        ]);
     });
 });
 jasmine_util_1.describeWithFlags('meanSquaredError', test_util_1.ALL_ENVS, function () {
@@ -367,6 +399,17 @@ jasmine_util_1.describeWithFlags('meanSquaredError', test_util_1.ALL_ENVS, funct
         expect(function () { return tf.losses.meanSquaredError(label, predictions, {}, tf.Reduction.MEAN); })
             .toThrowError(e);
     });
+    it('accepts a tensor-like object', function () {
+        var predictions = [1, 2, 3];
+        var label = [0.3, -0.6, -0.1];
+        var weights = [0.1, 0.2, 0.3];
+        var y = tf.losses.meanSquaredError(label, predictions, weights, tf.Reduction.NONE);
+        expect(y.shape).toEqual([3]);
+        test_util_1.expectArraysClose(y, [
+            (1 - 0.3) * (1 - 0.3) * 0.1, (2 - (-0.6)) * (2 - (-0.6)) * 0.2,
+            (3 - (-0.1)) * (3 - (-0.1)) * 0.3
+        ]);
+    });
 });
 jasmine_util_1.describeWithFlags('cosineDistance', test_util_1.ALL_ENVS, function () {
     it('1D', function () {
@@ -473,6 +516,14 @@ jasmine_util_1.describeWithFlags('cosineDistance', test_util_1.ALL_ENVS, functio
         expect(function () { return tf.losses.cosineDistance(label, predictions, 0, {}, tf.Reduction.MEAN); })
             .toThrowError(e);
     });
+    it('accepts a tensor-like object', function () {
+        var predictions = [1, 2, 3];
+        var label = [0.3, -0.6, -0.1];
+        var weights = 0.1;
+        var y = tf.losses.cosineDistance(label, predictions, 0, weights, tf.Reduction.NONE);
+        expect(y.shape).toEqual([1]);
+        test_util_1.expectArraysClose(y, [(1 - (1 * 0.3 + 2 * -0.6 + 3 * -0.1)) * 0.1]);
+    });
 });
 jasmine_util_1.describeWithFlags('hingeLoss', test_util_1.ALL_ENVS, function () {
     it('1D', function () {
@@ -572,6 +623,14 @@ jasmine_util_1.describeWithFlags('hingeLoss', test_util_1.ALL_ENVS, function () 
         var e = /Argument 'weights' passed to 'hingeLoss' must be a Tensor/;
         expect(function () { return tf.losses.hingeLoss(label, predictions, {}, tf.Reduction.MEAN); })
             .toThrowError(e);
+    });
+    it('accepts a tensor-like object', function () {
+        var predictions = [0, 0, 1, 1];
+        var label = [0, 1, 0, 1];
+        var weights = [0.1, 0.2, 0.3, 0.4];
+        var y = tf.losses.hingeLoss(label, predictions, weights, tf.Reduction.NONE);
+        expect(y.shape).toEqual([4]);
+        test_util_1.expectArraysClose(y, [0.1, 0.2, 0.6, 0.0]);
     });
 });
 jasmine_util_1.describeWithFlags('logLoss', test_util_1.ALL_ENVS, function () {
@@ -680,6 +739,14 @@ jasmine_util_1.describeWithFlags('logLoss', test_util_1.ALL_ENVS, function () {
         expect(function () { return tf.losses.logLoss(labels, predictions, {}, tf.Reduction.MEAN); })
             .toThrowError(e);
     });
+    it('accepts a tensor-like object', function () {
+        var labels = [1, 2, 3];
+        var predictions = [0.3, 0.6, 0.1];
+        var weights = [0.1, 0.2, 0.3];
+        var y = tf.losses.logLoss(labels, predictions, weights, undefined, tf.Reduction.NONE);
+        expect(y.shape).toEqual([3]);
+        test_util_1.expectArraysClose(y, [0.12039725, 0.02107204, 2.0091095]);
+    });
 });
 jasmine_util_1.describeWithFlags('huberLoss', test_util_1.ALL_ENVS, function () {
     it('1D', function () {
@@ -787,6 +854,196 @@ jasmine_util_1.describeWithFlags('huberLoss', test_util_1.ALL_ENVS, function () 
         var e = /Argument 'weights' passed to 'huberLoss' must be a Tensor/;
         expect(function () { return tf.losses.huberLoss(labels, predictions, {}, tf.Reduction.MEAN); })
             .toThrowError(e);
+    });
+    it('accepts a tensor-like object', function () {
+        var labels = [1, 2, 3];
+        var predictions = [0.3, 0.6, 0.1];
+        var weights = [0.1, 0.2, 0.3];
+        var y = tf.losses.huberLoss(labels, predictions, weights, undefined, tf.Reduction.NONE);
+        expect(y.shape).toEqual([3]);
+        test_util_1.expectArraysClose(y, [0.0245, 0.17999999, 0.72]);
+    });
+});
+jasmine_util_1.describeWithFlags('sigmoidCrossEntropy', test_util_1.ALL_ENVS, function () {
+    it('All wrong', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var y = tf.losses.sigmoidCrossEntropy(label, predictions);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 6.6667123);
+    });
+    it('All right', function () {
+        var label = tf.tensor2d([[1, 0, 0], [0, 1, 0], [0, 0, 1]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var y = tf.losses.sigmoidCrossEntropy(label, predictions);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 0);
+    });
+    it('Weighted - Reduction.SUM_BY_NONZERO_WEIGHTS', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var y = tf.losses.sigmoidCrossEntropy(label, predictions, weights);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 1.3333424);
+    });
+    it('Weighted - Reduction.NONE', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var y = tf.losses.sigmoidCrossEntropy(label, predictions, weights, undefined, tf.Reduction.NONE);
+        expect(y.shape).toEqual([3, 3]);
+        test_util_1.expectArraysClose(y, [
+            1.0000046, 9.0797803e-06, 3.0000138e+00, 1.0000046e+00, 2.0000093e+00,
+            1.3619671e-05, 4.5398901e-06, 2.0000093e+00, 3.0000138e+00
+        ]);
+    });
+    it('Reduction.MEAN', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var y = tf.losses.sigmoidCrossEntropy(label, predictions, undefined, undefined, tf.Reduction.MEAN);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 6.6667123);
+    });
+    it('Weighted - Reduction.MEAN', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var y = tf.losses.sigmoidCrossEntropy(label, predictions, weights, undefined, tf.Reduction.MEAN);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 6.666712284088135);
+    });
+    it('Label Smoothing - Weighted - Reduction.MEAN', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var labelSmoothing = 0.3;
+        var y = tf.losses.sigmoidCrossEntropy(label, predictions, weights, labelSmoothing, tf.Reduction.MEAN);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 6.1667128);
+    });
+    it('throws when multiClassLabels and logits are of different shapes', function () {
+        var multiClassLabels = tf.tensor2d([10, 10, 10, 10, 10, 10, 10, 10, 10], [3, 3]);
+        var logits = tf.tensor2d([10, 10, 10, 10, 10, 10], [2, 3]);
+        var e = new RegExp('Error in sigmoidCrossEntropy:  Shapes 3,3 and 2,3 must match');
+        expect(function () { return tf.losses.sigmoidCrossEntropy(multiClassLabels, logits); })
+            .toThrowError(e);
+    });
+    it('throws when passed multiClassLabels as a non-tensor', function () {
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var e = new RegExp('Argument \'multiClassLabels\' passed to \'sigmoidCrossEntropy\' ' +
+            'must be a Tensor');
+        expect(function () { return tf.losses.sigmoidCrossEntropy({}, predictions, weights, tf.Reduction.MEAN); })
+            .toThrowError(e);
+    });
+    it('throws when passed logits as a non-tensor', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var e = new RegExp('Argument \'logits\' passed to \'sigmoidCrossEntropy\' ' +
+            'must be a Tensor');
+        expect(function () { return tf.losses.sigmoidCrossEntropy(label, {}, weights, tf.Reduction.MEAN); })
+            .toThrowError(e);
+    });
+    it('throws when passed weights as a non-tensor', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var e = /Argument 'weights' passed to 'sigmoidCrossEntropy' must be a Tensor/;
+        expect(function () { return tf.losses.sigmoidCrossEntropy(label, predictions, {}, tf.Reduction.MEAN); })
+            .toThrowError(e);
+    });
+});
+jasmine_util_1.describeWithFlags('softmaxCrossEntropy', test_util_1.ALL_ENVS, function () {
+    it('All wrong', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var y = tf.losses.softmaxCrossEntropy(label, predictions);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 20);
+    });
+    it('All right', function () {
+        var label = tf.tensor2d([[1, 0, 0], [0, 1, 0], [0, 0, 1]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var y = tf.losses.softmaxCrossEntropy(label, predictions);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 0);
+    });
+    it('Weighted - Reduction.SUM_BY_NONZERO_WEIGHTS', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3], [0.1, 0.2, 0.3], [0.1, 0.2, 0.3]]);
+        var y = tf.losses.softmaxCrossEntropy(label, predictions, weights);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 4);
+    });
+    it('Weighted - Reduction.NONE', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor1d([0.1, 0.2, 0.3]);
+        var y = tf.losses.softmaxCrossEntropy(label, predictions, weights, undefined, tf.Reduction.NONE);
+        expect(y.shape).toEqual([3]);
+        test_util_1.expectArraysClose(y, [2, 4, 6]);
+    });
+    it('Reduction.MEAN', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var y = tf.losses.softmaxCrossEntropy(label, predictions, undefined, undefined, tf.Reduction.MEAN);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 20);
+    });
+    it('Weighted - Reduction.MEAN', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor1d([0.1, 0.2, 0.3]);
+        var y = tf.losses.softmaxCrossEntropy(label, predictions, weights, undefined, tf.Reduction.MEAN);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 20);
+    });
+    it('Label Smoothing - Weighted - Reduction.MEAN', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var labelSmoothing = 0.3;
+        var y = tf.losses.softmaxCrossEntropy(label, predictions, weights, labelSmoothing, tf.Reduction.MEAN);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 18);
+    });
+    it('throws when multiClassLabels and logits are of different shapes', function () {
+        var multiClassLabels = tf.tensor2d([10, 10, 10, 10, 10, 10, 10, 10, 10], [3, 3]);
+        var logits = tf.tensor2d([10, 10, 10, 10, 10, 10], [2, 3]);
+        var e = new RegExp('Error in softmaxCrossEntropy:  Shapes 3,3 and 2,3 must match');
+        expect(function () { return tf.losses.softmaxCrossEntropy(multiClassLabels, logits); })
+            .toThrowError(e);
+    });
+    it('throws when passed multiClassLabels as a non-tensor', function () {
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var e = new RegExp('Argument \'onehotLabels\' passed to \'softmaxCrossEntropy\' ' +
+            'must be a Tensor');
+        expect(function () { return tf.losses.softmaxCrossEntropy({}, predictions, weights, tf.Reduction.MEAN); })
+            .toThrowError(e);
+    });
+    it('throws when passed logits as a non-tensor', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var weights = tf.tensor2d([[0.1, 0.2, 0.3]]);
+        var e = new RegExp('Argument \'logits\' passed to \'softmaxCrossEntropy\' ' +
+            'must be a Tensor');
+        expect(function () { return tf.losses.softmaxCrossEntropy(label, {}, weights, tf.Reduction.MEAN); })
+            .toThrowError(e);
+    });
+    it('throws when passed weights as a non-tensor', function () {
+        var label = tf.tensor2d([[0, 0, 1], [1, 0, 0], [0, 1, 0]], [3, 3]);
+        var predictions = tf.tensor2d([[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]], [3, 3]);
+        var e = /Argument 'weights' passed to 'softmaxCrossEntropy' must be a Tensor/;
+        expect(function () { return tf.losses.softmaxCrossEntropy(label, predictions, {}, tf.Reduction.MEAN); })
+            .toThrowError(e);
+    });
+    it('accepts a tensor-like object', function () {
+        var label = [[0, 0, 1], [1, 0, 0], [0, 1, 0]];
+        var predictions = [[10.0, -10.0, -10.0], [-10.0, 10.0, -10.0], [-10.0, -10.0, 10.0]];
+        var y = tf.losses.softmaxCrossEntropy(label, predictions);
+        expect(y.shape).toEqual([]);
+        test_util_1.expectNumbersClose(y.get(), 20);
     });
 });
 //# sourceMappingURL=loss_ops_test.js.map

@@ -1,4 +1,5 @@
-import { NamedTensorMap, TypedArray } from '../types';
+import { NamedTensorMap } from '../tensor_types';
+import { TypedArray } from '../types';
 import { ModelArtifacts, ModelArtifactsInfo, WeightsManifestEntry } from './types';
 export declare function encodeWeights(tensors: NamedTensorMap): Promise<{
     data: ArrayBuffer;

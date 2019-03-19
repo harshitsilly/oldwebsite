@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tf = require("../index");
-var test_util_1 = require("../test_util");
 var jasmine_util_1 = require("../jasmine_util");
+var test_util_1 = require("../test_util");
 jasmine_util_1.describeWithFlags('lstm', test_util_1.ALL_ENVS, function () {
     it('MultiRNNCell with 2 BasicLSTMCells', function () {
         var lstmKernel1 = tf.tensor2d([
@@ -55,8 +55,22 @@ jasmine_util_1.describeWithFlags('lstm', test_util_1.ALL_ENVS, function () {
         expect(newC.get(0, 0)).toEqual(newC.get(1, 0));
         expect(newH.get(0, 0)).toEqual(newH.get(1, 0));
     });
+    it('basicLSTMCell accepts a tensor-like object', function () {
+        var lstmKernel = tf.randomNormal([3, 4]);
+        var lstmBias = [0, 0, 0, 0];
+        var forgetBias = 1;
+        var data = [[0, 0]];
+        var batchedData = tf.concat2d([data, data], 0);
+        var c = [[0]];
+        var batchedC = tf.concat2d([c, c], 0);
+        var h = [[0]];
+        var batchedH = tf.concat2d([h, h], 0);
+        var _a = tf.basicLSTMCell(forgetBias, lstmKernel, lstmBias, batchedData, batchedC, batchedH), newC = _a[0], newH = _a[1];
+        expect(newC.get(0, 0)).toEqual(newC.get(1, 0));
+        expect(newH.get(0, 0)).toEqual(newH.get(1, 0));
+    });
 });
-jasmine_util_1.describeWithFlags('multiRNN throws when passed non-tensor', test_util_1.CPU_ENVS, function () {
+jasmine_util_1.describeWithFlags('multiRNN throws when passed non-tensor', test_util_1.ALL_ENVS, function () {
     it('input: data', function () {
         var lstmKernel1 = tf.zeros([3, 4]);
         var lstmBias1 = tf.zeros([4]);
@@ -121,7 +135,7 @@ jasmine_util_1.describeWithFlags('multiRNN throws when passed non-tensor', test_
             .toThrowError(/Argument 'h\[0\]' passed to 'multiRNNCell' must be a Tensor/);
     });
 });
-jasmine_util_1.describeWithFlags('basicLSTMCell throws with non-tensor', test_util_1.CPU_ENVS, function () {
+jasmine_util_1.describeWithFlags('basicLSTMCell throws with non-tensor', test_util_1.ALL_ENVS, function () {
     it('input: forgetBias', function () {
         var lstmKernel = tf.randomNormal([3, 4]);
         var lstmBias = tf.randomNormal([4]);

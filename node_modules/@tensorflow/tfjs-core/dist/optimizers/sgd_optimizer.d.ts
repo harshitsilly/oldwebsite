@@ -1,6 +1,6 @@
 import { ConfigDict, Serializable, SerializableConstructor } from '../serialization';
 import { Scalar } from '../tensor';
-import { NamedTensorMap } from '../types';
+import { NamedTensorMap } from '../tensor_types';
 import { Optimizer } from './optimizer';
 export declare class SGDOptimizer extends Optimizer {
     protected learningRate: number;

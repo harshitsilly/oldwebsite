@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"style.e308ff8e.css","sourceRoot":"..\\src","sourcesContent":["\r\n\r\n\r\n#content{\r\n  margin-left:20%;\r\n  margin-right:20%;\r\n}\r\n.center{\r\n  text-align:center;\r\n}\r\n"]}

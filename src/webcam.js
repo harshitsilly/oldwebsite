@@ -30,6 +30,8 @@ import * as tf from '@tensorflow/tfjs';
 require("babel-core/register");
 require("babel-polyfill");
 
+const imageSize = [700,700];
+
 /**
  * A class that wraps webcam video elements to capture Tensor4Ds.
  */
@@ -49,17 +51,20 @@ export class Webcam {
         return tf.tidy(() => {
             // Reads the image as a Tensor from the webcam <video> element.
             const webcamImage = tf.fromPixels(this.webcamElement);
-
+            
             // Crop the image so we're using the center square of the rectangular
             // webcam.
             const croppedImage = this.cropImage(webcamImage);
 
             // Expand the outer most dimension so we have a batch size of 1.
-            const batchedImage = croppedImage.expandDims(0);
+            const smalImg = tf.image.resizeBilinear(croppedImage, [224, 224]);
 
+            const batchedImage = smalImg.expandDims(0);
+           
             // Normalize the image between -1 and 1. The image comes in between 0-255,
             // so we divide by 127 and subtract 1
-            return batchedImage.toFloat().div(tf.scalar(255));
+            console.log(this.webcamElement);
+            return [batchedImage.toFloat().div(tf.scalar(255)),webcamImage.shape];
         });
     }
 
@@ -73,9 +78,60 @@ export class Webcam {
         const beginHeight = centerHeight - (size / 2);
         const centerWidth = img.shape[1] / 2;
         const beginWidth = centerWidth - (size / 2);
-        return img.slice([beginHeight, beginWidth, 0], [size, size, 3]);
+        this.slicedImage = img.slice([0, 0, 0], [700, 700, 3]);
+        return this.slicedImage;
+        // let imageContainerHeightOffset = 0;
+        // let imageContainerWidthOffset = 0;
+        // if(imageSize[0] !== img.shape[0]){
+        //      imageContainerWidthOffset = img.shape[0] - imageSize[0];
+        // }
+        // if(imageSize[1] !== img.shape[1]){
+        //      imageContainerHeightOffset = img.shape[1] - imageSize[1];
+        // }
+        // console.log(imageSize,img.shape);
+        // const beginHeight =  parseInt(imageContainerHeightOffset / 2);
+        // const endHeight = parseInt(img.shape[1] - (imageContainerHeightOffset / 2));
+        // const beginWidth =  parseInt(imageContainerWidthOffset / 2);
+        // const endWidth = parseInt(img.shape[0] - (imageContainerWidthOffset / 2));
+        // console.log(beginHeight,endHeight,beginWidth,endWidth);
+        // let  smalImg= img.slice([beginWidth, beginHeight, 0], [endWidth, endHeight, 3]);
+        // // var x = document.createElement("CANVAS");
+        // // document.getElementById("content").appendChild(x);
+        // // tf.toPixels(smalImg, x).then(function (data) {// window.appendChild(x);
+             
+        // // });
+        // return smalImg;
     }
-
+    cropDetected(box){
+        let img = tf.fromPixels(this.webcamElement,1);
+        let {
+            top, left, bottom, right, classProb, className,
+          } = box;
+          top =  top * (700/224);
+          left= left *  (700/224) ; 
+          bottom=  bottom *  (700/224);
+          right=   right * (700/224);
+        let width = parseInt(right-left);
+        let height = parseInt(bottom-top);
+        img = img.slice([parseInt(top), parseInt(left), 0], [parseInt(height),parseInt(width), 1]);
+        let smalImg = tf.image.resizeBilinear(img, [32,256]);
+        // for testing purpose
+        // var x = document.createElement("CANVAS");
+        // document.getElementById("content").appendChild(x);
+        // tf.toPixels(smalImg,x).then((data)=>{
+         
+        
+        //   // window.appendChild(x);
+        // });
+        smalImg = smalImg.transpose();
+        let final_image = smalImg.expandDims(3);
+        return final_image;
+        // const batchedImage = smalImg.expandDims(0);
+       
+        // Normalize the image between -1 and 1. The image comes in between 0-255,
+        // so we divide by 127 and subtract 1
+        // return smalImg.toFloat().div(tf.scalar(255));
+    }
     /**
      * Adjusts the video size so we can make a centered square crop without
      * including whitespace.

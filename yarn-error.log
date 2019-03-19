@@ -1,0 +1,46 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\i321584\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Docker\Docker\Resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Cloud Foundry;C:\Program Files (x86)\Java\apache-maven-3.5.4\bin;C:\PostgreSQL\pg10\bin;C:\Users\i321584\Downloads\ngrok-stable-windows-amd64;C:\Users\i321584\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\i321584\Documents\apache-maven-3.6.0\bin;C:\Program Files (x86)\Java\jdk1.8.0_181\bin;C:\Users\i321584\AppData\Local\Android\android-sdk;C:\Users\i321584\AppData\Local\Android\android-sdk\tools;C:\Users\i321584\AppData\Local\Android\android-sdk\platform-tools;C:\Users\i321584\AppData\Local\Continuum\miniconda3\Scripts\conda.exe;C:\Program Files (x86)\Data Version Control;C:\Program Files (x86)\Yarn\bin;C:\Program Files\PuTTY;C:\Ruby25-x64\bin;C:\Users\i321584\.windows-build-tools\python27;C:\Users\i321584\AppData\Roaming\nvm\v8.11.4\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\WINDOWS\system32\node_modules\windows-build-tools\node_modules\.bin;C:\WINDOWS\system32\node_modules\.bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Docker\Docker\Resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Cloud Foundry;C:\Program Files (x86)\Java\apache-maven-3.5.4\bin;C:\PostgreSQL\pg10\bin;C:\Users\i321584\Downloads\ngrok-stable-windows-amd64;C:\Users\i321584\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\i321584\Documents\apache-maven-3.6.0\bin;C:\Program Files (x86)\Java\jdk1.8.0_181\bin;C:\Users\i321584\AppData\Local\Android\android-sdk;C:\Users\i321584\AppData\Local\Android\android-sdk\tools;C:\Users\i321584\AppData\Local\Android\android-sdk\platform-tools;C:\Users\i321584\AppData\Local\Continuum\miniconda3\Scripts\conda.exe;C:\Program Files (x86)\Data Version Control;C:\Users\i321584\AppData\Local\Continuum\miniconda3;C:\Users\i321584\AppData\Local\Continuum\miniconda3\Scripts;C:\Users\i32;C:\Users\i321584\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\i321584\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.13.0
+
+Node version: 
+  8.11.4
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, scandir 'C:\Users\i321584\Documents\GitHub\oldwebsite\node_modules\@types'
+
+npm manifest: 
+  {
+    "name": "tfjs-yolo-tiny-demo",
+    "version": "1.0.0",
+    "main": "src/index.js",
+    "license": "MIT",
+    "dependencies": {
+      "@tensorflow/tfjs": "0.x",
+      "parcel-proxy-server": "^1.1.0"
+    },
+    "devDependencies": {
+      "babel-core": "^6.26.0",
+      "babel-plugin-transform-runtime": "^6.23.0",
+      "babel-polyfill": "^6.5.0",
+      "babel-preset-env": "^1.6.1",
+      "parcel-bundler": "^1.7.0"
+    },
+    "scripts": {
+      "build": "rm -rf ./dist && parcel build src/indexcam.html --public-url='/tfjs-yolo-tiny-demo/'",
+      "serve": "parcel src/indexcam.html"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

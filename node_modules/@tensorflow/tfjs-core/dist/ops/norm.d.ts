@@ -1,4 +1,5 @@
 import { Tensor } from '../tensor';
-export declare class NormOps {
-    static norm(x: Tensor, ord?: number | 'euclidean' | 'fro', axis?: number | number[], keepDims?: boolean): Tensor;
-}
+import { TensorLike } from '../types';
+declare function norm_(x: Tensor | TensorLike, ord?: number | 'euclidean' | 'fro', axis?: number | number[], keepDims?: boolean): Tensor;
+export declare const norm: typeof norm_;
+export {};

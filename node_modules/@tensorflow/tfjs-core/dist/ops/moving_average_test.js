@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tf = require("../index");
-var test_util_1 = require("../test_util");
 var jasmine_util_1 = require("../jasmine_util");
+var test_util_1 = require("../test_util");
 jasmine_util_1.describeWithFlags('movingAverage', test_util_1.ALL_ENVS, function () {
     it('zeroDebias=true, decay and step are numbers', function () {
         var v0 = tf.tensor2d([[0, 0], [0, 0]], [2, 2]);
@@ -65,6 +65,13 @@ jasmine_util_1.describeWithFlags('movingAverage', test_util_1.ALL_ENVS, function
         var v = tf.tensor2d([[0, 0], [0, 0]], [2, 2]);
         expect(function () { return tf.movingAverage(v, {}, 1); })
             .toThrowError(/Argument 'x' passed to 'movingAverage' must be a Tensor/);
+    });
+    it('accepts a tensor-like object', function () {
+        var v0 = [[0, 0], [0, 0]];
+        var x = [[1, 2], [3, 4]];
+        var decay = 0.6;
+        var v1 = tf.movingAverage(v0, x, decay, 1);
+        test_util_1.expectArraysClose(v1, tf.tensor2d([[1, 2], [3, 4]], [2, 2]));
     });
 });
 //# sourceMappingURL=moving_average_test.js.map

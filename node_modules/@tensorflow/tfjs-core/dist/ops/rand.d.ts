@@ -16,6 +16,6 @@ export declare class MPRandGauss implements RandGauss {
     private random;
     constructor(mean: number, stdDeviation: number, dtype?: keyof RandNormalDataTypes, truncated?: boolean, seed?: number);
     nextValue(): number;
-    private convertValue(value);
-    private isValidTruncated(value);
+    private convertValue;
+    private isValidTruncated;
 }

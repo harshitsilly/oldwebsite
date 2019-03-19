@@ -123,6 +123,17 @@ jasmine_util_1.describeWithFlags('resizeBilinear', test_util_1.ALL_ENVS, functio
             ]]);
         test_util_1.expectArraysClose(output, expected);
     });
+    it('throws when passed a non-tensor', function () {
+        var e = /Argument 'images' passed to 'resizeBilinear' must be a Tensor/;
+        expect(function () { return tf.image.resizeBilinear({}, [
+            1, 1
+        ]); }).toThrowError(e);
+    });
+    it('accepts a tensor-like object', function () {
+        var input = [[[2], [2]], [[4], [4]]];
+        var output = tf.image.resizeBilinear(input, [3, 3], false);
+        test_util_1.expectArraysClose(output, [2, 2, 2, 10 / 3, 10 / 3, 10 / 3, 4, 4, 4]);
+    });
 });
 jasmine_util_1.describeWithFlags('resizeBilinear gradients', test_util_1.ALL_ENVS, function () {
     it('greyscale: upscale, same aspect ratio', function () {

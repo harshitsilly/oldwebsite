@@ -9,7 +9,7 @@ export const YOLO_ANCHORS = tf.tensor2d([
     [3.33843, 5.47434],
     [7.88282, 3.52778],
     [9.77052, 9.16828],
-]);
+]); 
 
 // Note: Returns [null] * 3 if all boxes are filtered out
 export async function yolo_filter_boxes(

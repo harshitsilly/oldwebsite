@@ -1,5 +1,5 @@
 import { ConfigDict, Serializable, SerializableConstructor } from '../serialization';
-import { NamedVariableMap } from '../types';
+import { NamedVariableMap } from '../tensor_types';
 import { SGDOptimizer } from './sgd_optimizer';
 export declare class MomentumOptimizer extends SGDOptimizer {
     protected learningRate: number;

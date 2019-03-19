@@ -1,5 +1,5 @@
 import { ConfigDict, Serializable, SerializableConstructor } from '../serialization';
-import { NamedVariableMap } from '../types';
+import { NamedVariableMap } from '../tensor_types';
 import { Optimizer } from './optimizer';
 export declare class AdagradOptimizer extends Optimizer {
     protected learningRate: number;
